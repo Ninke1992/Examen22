@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 from loguru import logger
 
-# import tifffile
+import tifffile
 from tqdm import tqdm
 
 from src.typehinting import DictDataset, ListDataset
@@ -138,8 +138,9 @@ class EuroSatDataset(BaseDictDataset):
         super().__init__(paths)
 
     def __len__(self) -> int:
+        return len(self.dataset)
         # TODO ~ about one - two lines of code
-        raise NotImplementedError
+        # raise NotImplementedError
 
     def process_data(self) -> None:
         for path in tqdm(self.paths):
@@ -150,14 +151,13 @@ class EuroSatDataset(BaseDictDataset):
             # add key-value pairs to self.dataset
             # the key is the class integer from name_mapping,
             # the value is the current List of Paths
-            # if there is no value for the key, return an empty List
+            # if there is no value for the key, return an empty np.array
             # TODO ~ finish these 2 lines of code below
-            key: int = None
-            value: np.ndarray = None
-
+            key: int = self.name_mapping[class_name]
+            value: np.ndarray = self.dataset.get(key, np.array([]))
+            
             # we append the new path to the values we already had
             self.dataset[key] = np.append(value, np.array([path]))
-
 
 class GenericStreamer:
     """This datastreamer wil never stop
@@ -298,18 +298,22 @@ class SiameseStreamer(GenericStreamer):
         """
         batch: List = []
         (same, equal), (other, (i, j)) = self.random_index()
-
+        
         # retrieve the arrays with paths from the three classes:
-        #   - the equal class
-        #   - the different classes i and j
-        # TODO ~three lines of code
+        equal_data = self.dataset[equal]
+        other_i_data = self.dataset[i]
+        other_j_data = self.dataset[j]
 
         for idx in same:
             # append to the batch a tuple (img1, img2, 1)
             # use tifffile to read the image
             # cast the image to np.int32
             # TODO ~ 4 till 5 lines of code
-            self.index += 1
+            self.index += 1         
+            img1 = np.int32(tifffile.imread(equal_data[idx[0]]))
+            img2 = np.int32(tifffile.imread(equal_data[idx[1]]))
+            tuple = (img1, img2, 1)
+            batch.append(tuple)
 
         for idx in other:
             # append to the batch a tuple (img1, img2, 0)
@@ -317,6 +321,10 @@ class SiameseStreamer(GenericStreamer):
             # cast the image to np.int32
             # TODO ~ 4 till 5 lines of code
             self.index += 1
+            img1 = np.int32(tifffile.imread(other_i_data[idx[0]]))
+            img1 = np.int32(tifffile.imread(other_j_data[idx[1]]))
+            tuple = (img1, img2, 0)
+            batch.append(tuple)
 
         random.shuffle(batch)
 
