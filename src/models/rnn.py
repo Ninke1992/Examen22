@@ -1,11 +1,12 @@
 from typing import Dict
 
+import gin
 import torch
 from torch import nn
 
 Tensor = torch.Tensor
 
-
+@gin.configurable
 class NLPmodel(nn.Module):
     def __init__(
         self,

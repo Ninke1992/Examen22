@@ -1,6 +1,7 @@
 import torch
 from sklearn.metrics import f1_score
 from torch.utils.data import DataLoader
+import numpy as np
 
 Tensor = torch.Tensor
 
@@ -64,3 +65,22 @@ class F1Score(Metric):
         yhat = yhat.argmax(dim=1)
         score = f1_score(y, yhat, average="macro")
         return torch.tensor(score)
+
+class ownMetric(Metric):
+    def __repr__(self) -> str:
+        return "Implemented measure to for model performance"
+
+    def __call__(self, y: Tensor, yhat: Tensor):
+        pred_arr = yhat.detach().numpy()
+        original_arr = y.numpy()
+        final_pred= []
+
+        for i in range(len(pred_arr)):
+            final_pred.append(np.argmax(pred_arr[i]))
+        final_pred = np.array(final_pred)
+        count = 0
+        
+        for i in range(len(original_arr)):
+            if final_pred[i] == original_arr[i]:
+                count+=1
+        return count/len(final_pred)*100
