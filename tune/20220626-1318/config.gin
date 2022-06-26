@@ -1,0 +1,91 @@
+import gin.torch.external_configurables
+
+# Parameters for optimizers.Adam:
+# ==============================================================================
+optimizers.Adam.b1 = 0.9
+optimizers.Adam.b2 = 0.999
+optimizers.Adam.clip_grad_norm = None
+optimizers.Adam.eps = 1e-05
+optimizers.Adam.learning_rate = 0.0001
+optimizers.Adam.weight_decay_rate = 1e-05
+
+# Parameters for backend:
+# ==============================================================================
+backend.name = 'jax'
+
+# Parameters for build_vocab:
+# ==============================================================================
+build_vocab.oov = '<OOV>'
+build_vocab.pad = '<PAD>'
+
+# Parameters for CategoryCrossEntropy:
+# ==============================================================================
+CategoryCrossEntropy.label_smoothing = None
+
+# Parameters for CausalAttention:
+# ==============================================================================
+# None.
+
+# Parameters for lr_schedules.constant:
+# ==============================================================================
+# None.
+
+# Parameters for debug_pipeline:
+# ==============================================================================
+debug_pipeline.debug = False
+debug_pipeline.log_prefix = None
+debug_pipeline.method = 'pow'
+
+# Parameters for EvalTask:
+# ==============================================================================
+EvalTask.export_prefix = None
+EvalTask.metric_names = None
+EvalTask.sample_batch = None
+
+# Parameters for NLPTraxCausalAttentionOneGru:
+# ==============================================================================
+NLPTraxCausalAttentionOneGru.dropout = 0.2
+NLPTraxCausalAttentionOneGru.heads = 4
+NLPTraxCausalAttentionOneGru.mode = 'train'
+NLPTraxCausalAttentionOneGru.output_size = 4
+NLPTraxCausalAttentionOneGru.units = 128
+NLPTraxCausalAttentionOneGru.vocab_size = 19308
+
+# Parameters for NLPTraxCausalAttentionOneGruLast:
+# ==============================================================================
+NLPTraxCausalAttentionOneGruLast.dropout = 0.2
+NLPTraxCausalAttentionOneGruLast.heads = 4
+NLPTraxCausalAttentionOneGruLast.mode = 'train'
+NLPTraxCausalAttentionOneGruLast.output_size = 4
+NLPTraxCausalAttentionOneGruLast.units = 128
+NLPTraxCausalAttentionOneGruLast.vocab_size = 19308
+
+# Parameters for Preprocessor:
+# ==============================================================================
+# None.
+
+# Parameters for TrainTask:
+# ==============================================================================
+TrainTask.export_prefix = None
+TrainTask.loss_name = None
+TrainTask.n_steps_per_checkpoint = 100
+TrainTask.n_steps_per_permanent_checkpoint = None
+TrainTask.sample_batch = None
+
+# Parameters for warmup_and_rsqrt_decay:
+# ==============================================================================
+# None.
+
+# Parameters for WeightedCategoryAccuracy:
+# ==============================================================================
+# None.
+
+# Parameters for WeightedCategoryCrossEntropy:
+# ==============================================================================
+WeightedCategoryCrossEntropy.cutoff = 0.0
+WeightedCategoryCrossEntropy.label_smoothing = None
+
+# Parameters for WeightedFScore:
+# ==============================================================================
+WeightedFScore.beta = 1.0
+WeightedFScore.initial_category_index = 0

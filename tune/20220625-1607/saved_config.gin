@@ -1,0 +1,22 @@
+# Parameters for AttentionNLP:
+# ==============================================================================
+# None.
+
+# Parameters for build_vocab:
+# ==============================================================================
+build_vocab.oov = '<OOV>'
+build_vocab.pad = '<PAD>'
+
+# Parameters for NLPmodel:
+# ==============================================================================
+# None.
+
+# Parameters for Preprocessor:
+# ==============================================================================
+# None.
+
+# Parameters for trainloop:
+# ==============================================================================
+trainloop.factor = 0.9
+trainloop.patience = 10
+trainloop.tunewriter = False

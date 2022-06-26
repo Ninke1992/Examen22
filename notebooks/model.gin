@@ -1,12 +1,21 @@
 import gin.torch.external_configurables
 
-train_model.trainloop.epochs = 100
-train_model.trainloop.learning_rate = 1e-3
-train_model.trainloop.optimizer = @Adam
-train_model.trainloop.loss_fn = @MSELoss()
-
-BaseRNN.input_size=1
-BaseRNN.hidden_size=32
-BaseRNN.num_layers=2
+NLPTraxCausalAttention.units = 128
+NLPTraxCausalAttention.dropout = 0.2
+NLPTraxCausalAttention.output_size = 4
+NLPTraxCausalAttention.heads = 4
+NLPTraxCausalAttention.vocab_size = 19308
 
 
+NLPTraxCausalAttentionOneGru.units = 128
+NLPTraxCausalAttentionOneGru.dropout = 0.2
+NLPTraxCausalAttentionOneGru.output_size = 4
+NLPTraxCausalAttentionOneGru.heads = 4
+NLPTraxCausalAttentionOneGru.vocab_size = 19308
+
+
+NLPTraxCausalAttentionOneGruLast.units = 128
+NLPTraxCausalAttentionOneGruLast.dropout = 0.2
+NLPTraxCausalAttentionOneGruLast.output_size = 4
+NLPTraxCausalAttentionOneGruLast.heads = 4
+NLPTraxCausalAttentionOneGruLast.vocab_size = 19308

@@ -138,7 +138,8 @@ class EuroSatDataset(BaseDictDataset):
         super().__init__(paths)
 
     def __len__(self) -> int:
-        return len(self.dataset)
+        return len(self.paths)
+
         # TODO ~ about one - two lines of code
         # raise NotImplementedError
 
