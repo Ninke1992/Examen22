@@ -6,9 +6,8 @@ from typing import Any, Callable, Dict, Iterator, List, Optional, Sequence, Tupl
 
 import numpy as np
 import pandas as pd
-from loguru import logger
-
 import tifffile
+from loguru import logger
 from tqdm import tqdm
 
 from src.typehinting import DictDataset, ListDataset
@@ -156,9 +155,10 @@ class EuroSatDataset(BaseDictDataset):
             # TODO ~ finish these 2 lines of code below
             key: int = self.name_mapping[class_name]
             value: np.ndarray = self.dataset.get(key, np.array([]))
-            
+
             # we append the new path to the values we already had
             self.dataset[key] = np.append(value, np.array([path]))
+
 
 class GenericStreamer:
     """This datastreamer wil never stop
@@ -299,7 +299,7 @@ class SiameseStreamer(GenericStreamer):
         """
         batch: List = []
         (same, equal), (other, (i, j)) = self.random_index()
-        
+
         # retrieve the arrays with paths from the three classes:
         equal_data = self.dataset[equal]
         other_i_data = self.dataset[i]
@@ -310,7 +310,7 @@ class SiameseStreamer(GenericStreamer):
             # use tifffile to read the image
             # cast the image to np.int32
             # TODO ~ 4 till 5 lines of code
-            self.index += 1         
+            self.index += 1
             img1 = np.int32(tifffile.imread(equal_data[idx[0]]))
             img2 = np.int32(tifffile.imread(equal_data[idx[1]]))
             tuple = (img1, img2, 1)

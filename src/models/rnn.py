@@ -6,6 +6,7 @@ from torch import nn
 
 Tensor = torch.Tensor
 
+
 @gin.configurable
 class NLPmodel(nn.Module):
     def __init__(
@@ -29,6 +30,7 @@ class NLPmodel(nn.Module):
         last_step = x[:, -1, :]
         yhat = self.linear(last_step)
         return yhat
+
 
 class AttentionNLP(nn.Module):
     def __init__(
