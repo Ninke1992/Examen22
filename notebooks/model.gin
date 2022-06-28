@@ -19,3 +19,9 @@ NLPTraxCausalAttentionOneGruLast.dropout = 0.2
 NLPTraxCausalAttentionOneGruLast.output_size = 4
 NLPTraxCausalAttentionOneGruLast.heads = 4
 NLPTraxCausalAttentionOneGruLast.vocab_size = 19308
+
+NLPTraxGLUCausalAttention.units = 128
+NLPTraxGLUCausalAttention.dropout = 0.2
+NLPTraxGLUCausalAttention.output_size = 4
+NLPTraxGLUCausalAttention.heads = 4
+NLPTraxGLUCausalAttention.vocab_size = 19308

@@ -110,7 +110,7 @@ def NLPTraxCausalAttentionOneGru(
 
 
 @gin.configurable
-@assert_shape("bld->bd")
+@assert_shape("bd->bd")
 def NLPTraxCausalAttentionOneGruLast(
     units: int,
     dropout: float,
