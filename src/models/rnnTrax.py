@@ -18,7 +18,7 @@ def avg_last():
     return tl.Fn("AvgLast", lambda x: x.mean(axis=-1), n_out=1)
 
 
-@assert_shape("bld->bd")
+@assert_shape("bd->be")
 def BaseNLPTrax(config: dict):
     model = cb.Serial(
         tl.Embedding(vocab_size=config["vocab"], d_feature=config["hidden_size"]),
@@ -30,7 +30,7 @@ def BaseNLPTrax(config: dict):
     return model
 
 
-@assert_shape("bld->bd")
+@assert_shape("bd->be")
 def NLPTrax2Layer(config: dict, mode="train"):
     model = cb.Serial(
         tl.ShiftRight(mode=mode),
@@ -46,7 +46,7 @@ def NLPTrax2Layer(config: dict, mode="train"):
 
 
 @gin.configurable
-@assert_shape("bld->bd")
+@assert_shape("bd->be")
 def NLPTraxAvgLastConfig(
     units: int, vocab_size: int, dropout: float, output_size: int, mode="train"
 ):
@@ -64,7 +64,7 @@ def NLPTraxAvgLastConfig(
 
 
 @gin.configurable
-@assert_shape("bld->bd")
+@assert_shape("bd->be")
 def NLPTraxCausalAttention(
     units: int,
     dropout: float,
@@ -88,7 +88,7 @@ def NLPTraxCausalAttention(
 
 
 @gin.configurable
-@assert_shape("bld->bd")
+@assert_shape("bd->be")
 def NLPTraxCausalAttentionOneGru(
     units: int,
     dropout: float,
@@ -110,7 +110,7 @@ def NLPTraxCausalAttentionOneGru(
 
 
 @gin.configurable
-@assert_shape("bd->bd")
+@assert_shape("bd->be")
 def NLPTraxCausalAttentionOneGruLast(
     units: int,
     dropout: float,
@@ -123,7 +123,7 @@ def NLPTraxCausalAttentionOneGruLast(
         tl.ShiftRight(mode=mode),
         tl.Embedding(vocab_size=vocab_size, d_feature=units),
         tl.GRU(n_units=units),
-        tl.Dropout(dropout),
+        tl.BatchNorm(),
         tl.CausalAttention(d_feature=units, n_heads=heads, dropout=dropout),
         last(),
         tl.Dense(output_size),
